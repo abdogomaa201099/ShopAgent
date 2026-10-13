@@ -1,0 +1,9 @@
+[project]
+name = "shop-agent"
+version = "0.1.0"
+description = "A support agent for a small online shop: one brain, two doors (chat and voice)."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
