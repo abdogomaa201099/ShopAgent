@@ -15,7 +15,11 @@ ORDERS = [
 # 1. test_find_order_finds_an_order: "5001" gives back the order whose status is "delivered".
 # 2. test_find_order_unknown_number_gives_none: "9999" gives back None.
 # ----------------------------------------------------------------------------------
+def test_find_order_finds_an_order():
+    assert find_order(ORDERS,"5001")["status"] == "delivered"
 
+def test_find_order_unknown_number_gives_none():
+    assert find_order(ORDERS, "9999") is None
 
 def test_find_order_matches_the_whole_number_only():
     assert find_order(ORDERS, "5003")["status"] == "processing"   # not "50031"

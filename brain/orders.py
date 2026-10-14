@@ -48,11 +48,12 @@ def find_order(orders, order_id):
     order_id must be a string of digits, like "5003". If it is empty or has anything
     else in it ("abc"), the caller made a mistake: raise ValueError.
     """
-    if not isinstance(order_id, str) and order_id.isnumeric():
-        raise NotImplementedError("Error: Not a correct type of order ID!")
+    if not isinstance(order_id, str) or not order_id.isnumeric():
+        raise ValueError("Error: Not a correct type of order ID!")
     for order in orders:
         if order["order_id"] == order_id:
             return order
+    return None
     # TODO A1.2 (Tuesday). The steps:
     # 1. If order_id is not a string of digits, raise ValueError with a clear message.
     # 2. Go through the orders. When one has exactly this "order_id", return it.
