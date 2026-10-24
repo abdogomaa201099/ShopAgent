@@ -12,11 +12,12 @@ def normalize_order_id(text):
 
     If there is more than one number, return the first one.
     """
-    engNumsTranslator = str.maketrans("٠١٢٣٤٥٦٧٨٩", "123456789")
+    engNumsTranslator = str.maketrans("٠١٢٣٤٥٦٧٨٩", "0123456789")
     textTranslated = text.translate(engNumsTranslator)
-    matchGroups = re.search(r"[0-9]+", textTranslated).group()
-    if len(matchGroups)>0:
-        return matchGroups[0]
+    if re.search(r"[0-9]+", textTranslated):
+        matchGroups = re.search(r"[0-9]+", textTranslated).group()
+        if len(matchGroups)>0:
+            return matchGroups
     return None
     # TODO A1.3 (Wednesday). The steps:
     # 1. Change every Arabic digit (٠١٢٣٤٥٦٧٨٩) into 0-9.
