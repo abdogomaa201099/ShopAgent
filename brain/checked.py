@@ -27,9 +27,26 @@ class CheckedOrder(BaseModel):
     #    when it is not digits 0-9; otherwise return the value.
     # 3. A @field_validator("ordered_on") classmethod: raise ValueError("ordered_on is in the future")
     #    when it is after date.today(); otherwise return the value.
-    def __init__(self, **data):
-        raise NotImplementedError("A1.5 (Tuesday): write CheckedOrder")
+    order_id: str 
+    customer: str 
+    total: float 
+    currency: str 
+    status: str
+    ordered_on: date
 
+    @field_validator("order_id")
+    @classmethod
+    def orderIdInRightForm(cls, value):
+        if not(value.isascii() and value.isdigit()):
+            raise ValueError("order_id must be digits")
+        return value
+
+    @field_validator("ordered_on")
+    @classmethod
+    def checkDate(cls, value):
+        if date.today()<value:
+            raise ValueError("ordered_on is in the future")
+        return value
 
 def check_rows(rows):
     """Check every row. Written for you: it shows how a caller uses CheckedOrder.
