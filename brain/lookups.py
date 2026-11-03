@@ -14,6 +14,8 @@ async def fake_lookup(order_id, seconds):
     # TODO A1.6 (Wednesday). The steps:
     # 1. Wait with asyncio.sleep (await it).
     # 2. Return the text f"{order_id}: found".
+    await asyncio.sleep(seconds)
+    return f"{order_id}: found"
     raise NotImplementedError("A1.6 (Wednesday): write fake_lookup")
 
 
@@ -23,6 +25,11 @@ async def lookup_one_by_one(order_ids, seconds):
     # 1. Start with an empty list.
     # 2. For each order_id: await fake_lookup(...) and add its answer to the list.
     # 3. Return the list.
+    lis = []
+    for orderid in order_ids:
+        ans = await fake_lookup(orderid, seconds)
+        lis.append(ans)
+    return lis
     raise NotImplementedError("A1.6 (Wednesday): write lookup_one_by_one")
 
 
@@ -32,6 +39,7 @@ async def lookup_together(order_ids, seconds):
     # 1. Make one fake_lookup(...) for each order_id (don't await them one by one).
     # 2. Hand them all to asyncio.gather, and await it.
     # 3. Return what gather gives back, as a list.
+    return await asyncio.gather(*[fake_lookup(orderid,seconds) for orderid in order_ids])
     raise NotImplementedError("A1.6 (Wednesday): write lookup_together")
 
 
